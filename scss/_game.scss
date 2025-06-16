@@ -22,7 +22,7 @@
     background: white;
     border: 1px solid grey;
     &:hover {
-        background: grey;
+        background: rgba(0, 0, 0, 0.2);
     }
     cursor: pointer;
 }
@@ -33,4 +33,7 @@
     flex: 1;
     border: 1px solid grey;
     background: black;
+    &:hover {
+        background: rgba(0, 0, 0, 0.8);
+    }
 }

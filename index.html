@@ -7,12 +7,36 @@
     <link rel="stylesheet" href="css/index.css" />
 </head>
 <body>
+    <!-- Header -->
+    <nav>
+        <h1>Game of Life</h1>
+    </nav>
+
     <main>
         <!-- Controls -->
         <div id="game-controls">
-            <button onclick="step();">Step</button>
-            <button id="pause-play" onclick="play();">Play</button>
-            <input id="dimension" type="number" value="20"/>
+            <button class="control-button" onclick="step();">Step</button>
+            <button class="control-button" id="pause-play" onclick="play();">Play</button>
+            <button class="control-button" onclick="init();">Reset</button>
+            <div id="dimension-outer">
+                <!-- Decrease Grid Size -->
+                <button class="dimension-button" onclick="
+                    size = parseInt($('#dimension').val());
+                    if (size > 5) {
+                        $('#dimension').val(size - 1);
+                        init();
+                    }
+                    ">-</button>
+                <input id="dimension" type="text" value="20"/>
+                <!-- Increase Grid Size -->
+                                <button class="dimension-button" onclick="
+                    size = parseInt($('#dimension').val());
+                    if (size < 50) {
+                        $('#dimension').val(size + 1);
+                        init();
+                    }
+                    ">+</button>
+            </div>
         </div>
 
         <!-- Game -->
