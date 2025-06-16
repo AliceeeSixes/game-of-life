@@ -1,0 +1,47 @@
+body {
+  background: rgba(0, 255, 255, 0.2); }
+
+#game-controls {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 5px; }
+
+#dimension,
+button {
+  width: 100px; }
+
+#game-container {
+  background: white;
+  width: 95vw;
+  height: 95vw;
+  margin: 30px auto;
+  border: 2px solid black;
+  display: grid; }
+  @media (min-width: 700px) {
+    #game-container {
+      width: 600px;
+      height: 600px; } }
+  @media (min-width: 1000px) {
+    #game-container {
+      width: 800px;
+      height: 800px; } }
+
+.cell {
+  min-width: 5px;
+  min-height: 5px;
+  flex: 1;
+  background: white;
+  border: 1px solid grey;
+  cursor: pointer; }
+  .cell:hover {
+    background: grey; }
+
+.cell-active {
+  min-width: 5px;
+  min-height: 5px;
+  flex: 1;
+  border: 1px solid grey;
+  background: black; }
+
+/*# sourceMappingURL=index.css.map */

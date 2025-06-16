@@ -1,0 +1,36 @@
+#game-container {
+    background: white;
+    width: 95vw;
+    height: 95vw;
+    @media (min-width: 700px) {
+        width: 600px;
+        height: 600px;
+    }
+    @media (min-width: 1000px) {
+        width: 800px;
+        height: 800px;
+    }
+    margin: 30px auto;
+    border: 2px solid black;
+    display: grid;
+}
+
+.cell {
+    min-width: 5px;
+    min-height: 5px;
+    flex: 1;
+    background: white;
+    border: 1px solid grey;
+    &:hover {
+        background: grey;
+    }
+    cursor: pointer;
+}
+
+.cell-active {
+    min-width: 5px;
+    min-height: 5px;
+    flex: 1;
+    border: 1px solid grey;
+    background: black;
+}
