@@ -45,9 +45,8 @@ function randomise() {
         } else {
             $cell.attr("alive","false");
         }
-
-        updateColours();
     }
+    updateColours();
 }
 
 
