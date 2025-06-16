@@ -36,6 +36,19 @@ function init () {
 init();
 
 
+function randomise() {
+    for (let i = 0; i < totalCells; i++) {
+        $cell = $(`.cell-${i}`);
+        random = Math.floor(Math.random() * 2);
+        if (random) {
+            $cell.attr("alive","true");
+        } else {
+            $cell.attr("alive","false");
+        }
+
+        updateColours();
+    }
+}
 
 
 function step () {
