@@ -1,0 +1,21 @@
+footer {
+    width: 95vw;
+    @media (min-width: 700px) {
+        width: 600px;
+    }
+    @media (min-width: 1000px) {
+        width: 700px;
+    }
+
+    margin: auto;
+    padding-top: 10px; 
+    border-top: 1px solid rgba(0,0,0,0.2);
+    text-align: center;
+    color: rgba(0,0,0,0.6);
+    a {
+        color: rgba(0,0,0,0.8);
+        &:hover {
+            color: black;
+        }
+    }
+}

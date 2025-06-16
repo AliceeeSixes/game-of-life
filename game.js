@@ -2,9 +2,6 @@
 $game = $("#game-container");
 $dimensionInput = $("#dimension");
 
-$dimensionInput.on("change", function () {
-    init();
-});
 
 function init () {
     $game.html("");
@@ -29,6 +26,7 @@ function init () {
 
         updateColours();
     })
+    pause();
 }
 
 

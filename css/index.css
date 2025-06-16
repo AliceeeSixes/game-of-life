@@ -1,5 +1,6 @@
 body {
-  font-family: sans-serif; }
+  font-family: sans-serif;
+  background: rgba(0, 0, 0, 0.025); }
 
 nav {
   text-align: center; }
@@ -59,27 +60,28 @@ nav {
   text-align: center; }
 
 #game-container {
-  background: white;
+  background: rgba(0, 0, 0, 0.2);
   width: 95vw;
   height: 95vw;
   margin: 30px auto;
-  border: 2px solid black;
-  display: grid; }
+  border: 1px solid black;
+  display: grid;
+  gap: 1px;
+  padding: 1px; }
   @media (min-width: 700px) {
     #game-container {
       width: 600px;
       height: 600px; } }
   @media (min-width: 1000px) {
     #game-container {
-      width: 800px;
-      height: 800px; } }
+      width: 700px;
+      height: 700px; } }
 
 .cell {
   min-width: 5px;
   min-height: 5px;
   flex: 1;
   background: white;
-  border: 1px solid grey;
   cursor: pointer; }
   .cell:hover {
     background: rgba(0, 0, 0, 0.2); }
@@ -92,5 +94,23 @@ nav {
   background: black; }
   .cell-active:hover {
     background: rgba(0, 0, 0, 0.8); }
+
+footer {
+  width: 95vw;
+  margin: auto;
+  padding-top: 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  text-align: center;
+  color: rgba(0, 0, 0, 0.6); }
+  @media (min-width: 700px) {
+    footer {
+      width: 600px; } }
+  @media (min-width: 1000px) {
+    footer {
+      width: 700px; } }
+  footer a {
+    color: rgba(0, 0, 0, 0.8); }
+    footer a:hover {
+      color: black; }
 
 /*# sourceMappingURL=index.css.map */
