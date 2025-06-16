@@ -5,6 +5,11 @@ body {
 nav {
   text-align: center; }
 
+#generation-text {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px; }
+
 #game-controls {
   width: 100%;
   display: flex;
@@ -63,7 +68,7 @@ nav {
   background: rgba(0, 0, 0, 0.2);
   width: 95vw;
   height: 95vw;
-  margin: 30px auto;
+  margin: 10px auto 20px;
   border: 1px solid black;
   display: grid;
   gap: 1px;

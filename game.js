@@ -1,6 +1,7 @@
 // Initialise
 $game = $("#game-container");
 $dimensionInput = $("#dimension");
+generation = 0;
 
 
 function init () {
@@ -27,6 +28,8 @@ function init () {
         updateColours();
     })
     pause();
+    generation = 0;
+    $("#generation").html(generation);
 }
 
 
@@ -36,6 +39,9 @@ init();
 
 
 function step () {
+    // Update Geneneration Text
+    generation++;
+    $("#generation").html(generation);
     // Array for values for next generation (so all cells update instantaneously instead of in order)
     newCells = [];
 
