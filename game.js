@@ -47,6 +47,9 @@ function randomise() {
         }
     }
     updateColours();
+    pause();
+    generation = 0;
+    $("#generation").html(generation);
 }
 
 
