@@ -1,11 +1,17 @@
 body {
     font-family: sans-serif;
     background: rgba(0,0,0,0.025);
+    margin: 0;
 }
+
 
 
 nav {
     text-align: center;
+    h1 {
+        margin: 0;
+        padding: 10px;
+    }
 }
 
 #generation-text {
