@@ -100,8 +100,8 @@ nav {
       height: 700px; } }
 
 .cell {
-  min-width: 5px;
-  min-height: 5px;
+  min-width: 1px;
+  min-height: 1px;
   flex: 1;
   background: white;
   cursor: pointer; }
@@ -109,8 +109,8 @@ nav {
     background: rgba(0, 0, 0, 0.2); }
 
 .cell-active {
-  min-width: 5px;
-  min-height: 5px;
+  min-width: 1px;
+  min-height: 1px;
   flex: 1;
   border: 1px solid grey;
   background: black; }

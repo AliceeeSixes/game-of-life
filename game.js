@@ -4,6 +4,7 @@ $dimensionInput = $("#dimension");
 generation = 0;
 gameState = [];
 prevState = [];
+cells = [];
 
 
 function init () {
@@ -17,9 +18,11 @@ function init () {
         y = Math.floor(i/dimension);
         x = i % dimension;
         $cell = $(`<div class="cell" cell-id="${i}"></div>`);
+        cells[i] = $cell;
         $game.append($cell);
         gameState[i] = 0;
     }
+
 
     // Click to active/deactivate cells
     $(".cell").on("click", function (e) {
@@ -32,7 +35,7 @@ function init () {
         }
 
         // Update Colour
-        $cell = $(`[cell-id="${i}"]`);
+        $cell = cells[i];
         if (gameState[i]) {
             $cell.addClass("cell-active");
         } else {
@@ -50,7 +53,7 @@ init();
 
 function randomise() {
     for (let i = 0; i < totalCells; i++) {
-        $cell = $(`[cell-id="${i}"]`);
+        $cell = cells[i];
         random = Math.floor(Math.random() * 2);
         if (random) {
             gameState[i] = 1;;
@@ -74,8 +77,8 @@ function step () {
 
     // Iterate through cells
     for (let i = 0; i < totalCells; i++) {
-        // Select cell
-        $cell = $(`[cell-id="${i}"]`);
+
+        // Find cell position
         position = indexToPosition(i);
         x = position[0];
         y = position[1];
@@ -139,11 +142,10 @@ function updateColours () {
     for (let i = 0; i < totalCells; i++) {
         // Only load in cells that have been updated since the previous state (massive time save)
         if (gameState[i] != prevState[i]) {
-            $cell = $(`[cell-id="${i}"]`);
             if (gameState[i]) {
-                $cell.addClass("cell-active");
+                cells[i].addClass("cell-active");
             } else {
-                $cell.removeClass("cell-active");
+                cells[i].removeClass("cell-active");
             }
         }
     }
