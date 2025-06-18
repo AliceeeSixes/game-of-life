@@ -154,7 +154,7 @@ function updateColours () {
 // Pause/play button
 
 function play () {
-    playTimer = setInterval(step, 300);
+    playTimer = setInterval(step, 100);
     $("#pause-play").text("Pause").attr("onclick","pause();");
 }
 
