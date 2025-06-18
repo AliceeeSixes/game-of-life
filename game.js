@@ -2,30 +2,42 @@
 $game = $("#game-container");
 $dimensionInput = $("#dimension");
 generation = 0;
+gameState = [];
+prevState = [];
 
 
 function init () {
     $game.html("");
     dimension = $dimensionInput.val();
     totalCells = dimension * dimension;
+    gameState = new Uint8Array(totalCells);
+    prevState = new Uint8Array(totalCells);
     $game.css({"grid-template-rows":`repeat(${dimension}, 1fr)`,"grid-template-columns":`repeat(${dimension}, 1fr)`});
     for (let i = 0; i < totalCells; i++) {
         y = Math.floor(i/dimension);
         x = i % dimension;
-        $cell = $(`<div class="cell cell-${i}" position="${x}, ${y}" alive="false"></div>`);
+        $cell = $(`<div class="cell" cell-id="${i}"></div>`);
         $game.append($cell);
+        gameState[i] = 0;
     }
 
     // Click to active/deactivate cells
     $(".cell").on("click", function (e) {
         $cell = $(e.target);
-        if ($cell.attr("alive") == "false") {
-            $cell.attr("alive","true");
+        i = parseInt($cell.attr("cell-id"));
+        if (gameState[i] == 0) {
+            gameState[i] = 1;
         } else {
-            $cell.attr("alive","false");
+            gameState[i] = 0;
         }
 
-        updateColours();
+        // Update Colour
+        $cell = $(`[cell-id="${i}"]`);
+        if (gameState[i]) {
+            $cell.addClass("cell-active");
+        } else {
+            $cell.removeClass("cell-active");
+        }
     })
     pause();
     generation = 0;
@@ -38,12 +50,12 @@ init();
 
 function randomise() {
     for (let i = 0; i < totalCells; i++) {
-        $cell = $(`.cell-${i}`);
+        $cell = $(`[cell-id="${i}"]`);
         random = Math.floor(Math.random() * 2);
         if (random) {
-            $cell.attr("alive","true");
+            gameState[i] = 1;;
         } else {
-            $cell.attr("alive","false");
+            gameState[i] = 0;
         }
     }
     updateColours();
@@ -58,76 +70,80 @@ function step () {
     generation++;
     $("#generation").html(generation);
     // Array for values for next generation (so all cells update instantaneously instead of in order)
-    newCells = [];
+    newState = prevState;
 
     // Iterate through cells
     for (let i = 0; i < totalCells; i++) {
         // Select cell
-        $cell = $(`.cell-${i}`);
-        position = $cell.attr("position");
-        position = position.split(", ");
-        x = parseInt(position[0]);
-        y = parseInt(position[1]);
+        $cell = $(`[cell-id="${i}"]`);
+        position = indexToPosition(i);
+        x = position[0];
+        y = position[1];
 
         
         // Find neighbours
         neighboursAlive = 0;
         neighbours = [
-            `${x-1}, ${y-1}`, // Top-left
-            `${x}, ${y-1}`, // Top
-            `${x+1}, ${y-1}`, // Top-right
-            `${x-1}, ${y}`, // Left
-            `${x+1}, ${y}`, // Right
-            `${x-1}, ${y+1}`, // Bottom-left
-            `${x}, ${y+1}`, // Bottom
-            `${x+1}, ${y+1}`, // Bottom-right
+            [x-1, y-1], // Top-left
+            [x+0, y-1], // Top
+            [x+1, y-1], // Top-right
+            [x-1, y+0], // Left
+            [x+1, y+0], // Right
+            [x-1, y+1], // Bottom-left
+            [x+0, y+1], // Bottom
+            [x+1, y+1], // Bottom-right
         ]
         neighbours.forEach(function (neighbour) {
-            cellStatus = $(`[position="${neighbour}"]`).attr("alive");
-            if (cellStatus == "true") {
-                neighboursAlive += 1;
+            let j = positionToIndex(neighbour[0], neighbour[1]);
+            if (j !== null) {
+                cellStatus = gameState[j];
+                if (cellStatus == 1) {
+                    neighboursAlive += 1;
+                }
             }
         });
 
         // Find cells statuses for next generation
 
-        if ($cell.attr("alive") == "true") {
+        if (gameState[i]) {
             // If the cell is already alive
             if (neighboursAlive < 2 || neighboursAlive > 3) {
                 // Kill if over or under populated
-                newCells[i] = "false";
+                newState[i] = 0;
             } else {
-                newCells[i] = "true";
+                newState[i] = 1;
             }
 
         } else {
             // If the cell is currently dead
             if (neighboursAlive == 3) {
                 // Cell comes alive
-                newCells[i] = "true";
+                newState[i] = 1;
             } else {
-                newCells[i] = "false";
+                newState[i] = 0;
             }
         }
     }
 
+    // Store old state
+    prevState = gameState;
 
     // Update cells to new statuses
-    for (let i = 0; i < totalCells; i++) {
-        $cell = $(`.cell-${i}`);
-        $cell.attr("alive",newCells[i]);
-    }
+    gameState = newState;
+
     // Update Cell Colours
     updateColours();
 }
 
 function updateColours () {
     for (let i = 0; i < totalCells; i++) {
-        $cell = $(`.cell-${i}`);
-        if ($cell.attr("alive") == "true") {
-            $cell.addClass("cell-active");
-        } else {
-            $cell.removeClass("cell-active");
+        if (gameState[i] != prevState[i]) {
+            $cell = $(`[cell-id="${i}"]`);
+            if (gameState[i]) {
+                $cell.addClass("cell-active");
+            } else {
+                $cell.removeClass("cell-active");
+            }
         }
     }
 }
@@ -142,4 +158,21 @@ function play () {
 function pause () {
     clearInterval(playTimer);
     $("#pause-play").text("Play").attr("onclick","play();");
+}
+
+
+// Position/index converter functions 
+
+function indexToPosition (i) {
+    y = Math.floor(i/dimension);
+    x = i % dimension;
+    return [x,y];
+}
+
+function positionToIndex (x, y) {
+    position = (y * dimension) + x;
+    if (x < 0 || y < 0) {
+        return null;
+    }
+    return position;
 }

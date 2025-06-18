@@ -44,11 +44,11 @@
                         init();
                     }
                     ">-</button>
-                <input id="dimension" type="text" value="20" readonly/>
+                <input id="dimension" type="text" value="20" onchange="init();"/>
                 <!-- Increase Grid Size -->
                                 <button class="dimension-button" onclick="
                     size = parseInt($('#dimension').val());
-                    if (size < 50) {
+                    if (size < 75) {
                         $('#dimension').val(size + 1);
                         init();
                     }
