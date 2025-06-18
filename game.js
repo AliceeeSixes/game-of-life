@@ -137,6 +137,7 @@ function step () {
 
 function updateColours () {
     for (let i = 0; i < totalCells; i++) {
+        // Only load in cells that have been updated since the previous state (massive time save)
         if (gameState[i] != prevState[i]) {
             $cell = $(`[cell-id="${i}"]`);
             if (gameState[i]) {
