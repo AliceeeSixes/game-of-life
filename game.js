@@ -174,7 +174,7 @@ function indexToPosition (i) {
 
 function positionToIndex (x, y) {
     position = (y * dimension) + x;
-    if (x < 0 || y < 0) {
+    if (x < 0 || y < 0 || x >= dimension || y >= dimension) {
         return null;
     }
     return position;
